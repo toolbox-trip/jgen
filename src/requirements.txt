@@ -1,0 +1,4 @@
+authlib>=0.14.3
+Flask>=1.1.2
+pycryptodomex
+pymemcache>=3.4.0
