@@ -1,8 +1,9 @@
 NAME = jgen
+BASE = snail.azurecr.io
 
 
 version:
-	@docker build --tag snail.azurecr.io/$(NAME):$(VERSION) ./src
+	@docker build --tag ${BASE}/$(NAME):$(VERSION) ./src
 
 pre_latest:
 override VERSION = latest
