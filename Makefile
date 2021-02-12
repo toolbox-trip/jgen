@@ -1,5 +1,5 @@
 NAME = jgen
-BASE = snail.azurecr.io
+BASE = ""
 
 
 version:
