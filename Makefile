@@ -1,5 +1,5 @@
 NAME = jgen
-BASE = ""
+BASE = "localhost"
 
 
 version:
