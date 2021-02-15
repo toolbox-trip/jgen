@@ -1,0 +1,35 @@
+name: Make-Docker
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  CARGO_TERM_COLOR: always
+  DOCKER_IMAGE_NAME: crownair/jgen
+
+jobs:
+  build:
+
+    runs-on: Ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: get current date
+      id: date
+      run: echo "::set-output name=tag::$(date +'%Y%m%d%H%M%S')${GITHUB_SHA:0:6}"
+
+    - name: build
+      run: make BASE=docker.io NAME=$DOCKER_IMAGE_NAME VERSION=${{ steps.date.outputs.tag }} version
+
+    - name: docker login
+      run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+    - name: publish to registry
+      run: docker push $DOCKER_IMAGE_NAME:${{ steps.date.outputs.tag }}
+
+    - name: docker logout
+      run: docker logout
